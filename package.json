@@ -4,14 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start" : "nodemon src/index.js",
+    "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-json": "^2.0.0",
+    "swagger-ui-express": "^4.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
