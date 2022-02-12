@@ -14,9 +14,11 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
+    "pg": "^8.7.3",
     "swagger-jsdoc": "^6.1.0",
     "swagger-json": "^2.0.0",
-    "swagger-ui-express": "^4.3.0"
+    "swagger-ui-express": "^4.3.0",
+    "typeorm": "^0.2.41"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

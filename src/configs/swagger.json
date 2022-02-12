@@ -11,7 +11,7 @@
   "servers" : [
     {
       "url" : "http://localhost:5000",
-      "description" : "API"
+      "description" : "Enterprise Resource Planning API"
     }
   ],
   "paths": {
