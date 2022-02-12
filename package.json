@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "swagger-jsdoc": "^6.1.0",
     "swagger-json": "^2.0.0",
