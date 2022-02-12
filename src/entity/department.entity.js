@@ -17,5 +17,13 @@ module.exports = new EntitySchema({
         createAt: {
             type : Date
         }
+    },
+    relations: {
+        enterprises: {
+            target: "Enterprise",
+            type: "many-to-one",
+            joinTable: true,
+            cascade: true
+        }
     }
 });
