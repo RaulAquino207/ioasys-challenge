@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
-import { UserController } from './controller/UserController';
+import { registerUser } from './controller/UserController';
 import { registerEnterprise } from './controller/EnterpriseController';
-import { DepartmentController } from './controller/DepartmentController';
+import { registerDepartment } from './controller/DepartmentController';
 
 const routes = Router();
 
@@ -18,5 +18,9 @@ routes.get("/version", (req : Request, res : Response) => {
 });
 
 routes.post("/registerEnterprise", registerEnterprise);
+
+routes.post("/registerDepartment", registerDepartment);
+
+routes.post("/registerUser", registerUser);
 
 export default routes;

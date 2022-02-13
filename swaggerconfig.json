@@ -74,6 +74,58 @@
           }
         }
       }
+    },
+    "/registerDepartment" : {
+      "post" : {
+        "sumary" : "",
+        "description" : "",
+        "tags" : ["Department"],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Department"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "type" : "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/registerUser" : {
+      "post" : {
+        "sumary" : "",
+        "description" : "",
+        "tags" : ["User"],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "type" : "object"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -94,6 +146,39 @@
             "type" : "string"
           },
           "passwordConfirm" : {
+            "type" : "string"
+          }
+        }
+      },
+
+      "Department" : {
+        "type" : "object",
+        "properties" : {
+          "departmentName" : {
+            "type" : "string"
+          },
+          "enterpriseId" : {
+            "type" : "number"
+          }
+        }
+      },
+
+      "User" : {
+        "type" : "object",
+        "properties" : {
+          "userName" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "passwordConfirm" : {
+            "type" : "string"
+          },
+          "roleTag" : {
             "type" : "string"
           }
         }
