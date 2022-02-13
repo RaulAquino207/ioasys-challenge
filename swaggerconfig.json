@@ -1,0 +1,103 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Ioasys Challenge",
+    "description": "Ioasys Challenge Documentation",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": { "name": "https://github.com/RaulAquino207" },
+    "license": { "name": "MIT" }
+  },
+  "servers" : [
+    {
+      "url" : "http://localhost:5000",
+      "description" : "Enterprise Resource Planning API"
+    }
+  ],
+  "paths": {
+    "/health" : {
+      "get" : {
+        "summary" : "Show if the backend in general is ok.",
+        "description" : "This route has the property of showing if the backend is ok in general.",
+        "tags" : ["API"],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "type" : "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/version" : {
+      "get" : {
+        "summary" : "API version",
+        "description" : "Behind what is the current version of the backend.",
+        "tags" : ["API"],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "type" : "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/registerEnterprise" : {
+      "post" : {
+        "sumary" : "",
+        "description" : "",
+        "tags" : ["Enterprise"],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Enterprise"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "type" : "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Enterprise" : {
+        "type" : "object",
+        "properties" : {
+          "enterpriseName" : {
+            "type" : "string"
+          },
+          "userName" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "passwordConfirm" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
