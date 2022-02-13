@@ -23,7 +23,6 @@ export const registerEnterprise = async (req: Request, res: Response) => {
 
   const { enterpriseName, userName, email, password, passwordConfirm } =
   req.body;
-  console.log("🚀 ~ ", enterpriseName, userName, email, password, passwordConfirm);
   const foundEnterprise = await enterpriseRepository.findOne({
     where: {
       enterpriseName,
@@ -49,13 +48,12 @@ export const registerEnterprise = async (req: Request, res: Response) => {
         })
     } else {
         let hashedPassword = await bcrypt.hash(password, 8);
-        console.log("🚀 ~ ELSE", hashedPassword);
         const enterprise = new Enterprise({
             enterpriseName : enterpriseName,
             createAt : new Date
         })
 
-        let roleADMIN = roleRepository.findOne({
+        let roleADMIN = await roleRepository.findOne({
             where : {
                 roleTag : 'ADMIN'
             }
@@ -66,11 +64,7 @@ export const registerEnterprise = async (req: Request, res: Response) => {
             createAt : new Date,
             email : email,
             password : hashedPassword,
-            role : new Role({
-                id : 1,
-                roleName : 'Admin',
-                roleTag : 'ADMIN'
-            })
+            role : roleADMIN
         })
 
         await enterpriseRepository.save(enterprise);

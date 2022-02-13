@@ -4,6 +4,7 @@ import {
   Column,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { User } from "./User.entity";
 
@@ -22,8 +23,9 @@ export class Role {
   @Column()
   roleTag: string;
 
-  @OneToOne(() => User, (user) => user.id, {
-    cascade: true,
-  })
-  user: User;
+  @OneToMany(
+    () => User,
+    user => user.role,
+  )
+  users: User;
 }
