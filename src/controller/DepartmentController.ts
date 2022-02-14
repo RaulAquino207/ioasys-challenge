@@ -3,6 +3,60 @@ import { Request, Response } from "express";
 import { Department } from "../entity/Department.entity";
 import { Enterprise } from "../entity/Enterprise.entity";
 
+export const deleteDepartment = async (req: Request, res: Response) => {
+  const departmentRepository = getRepository(Department);
+  const { id } = req.params;
+
+  try {
+    const foundDepartment = await departmentRepository.find({
+      where : {
+        id : id
+      }
+    })
+
+    if(foundDepartment.length == 0){
+      return res.status(400).json({
+        message: "Department not found",
+      });
+    } else {
+      departmentRepository.delete(foundDepartment[0]);
+      return res.status(200).json({
+        message: `department ${foundDepartment[0].id} successfully deleted`,
+      });
+    }
+  } catch (error) {
+    throw new Error(`Internal server error : ${error}`);
+  }
+  
+}
+
+export const changeDepartmentName = async (req: Request, res: Response) => {
+  const departmentRepository = getRepository(Department);
+  const { id } = req.params;
+  const { departmentName } = req.body;
+
+  const foundDepartment = await departmentRepository.find({
+      where : {
+        id : id
+      }
+    })
+
+    if(foundDepartment.length == 0){
+      return res.status(400).json({
+        message: "Department not found",
+      });
+    } else {
+      await departmentRepository.merge(foundDepartment[0], {
+        departmentName
+      });
+      await departmentRepository.save(foundDepartment[0]);
+
+      return res.status(200).json({
+        message: "Department successfully altered",
+      });
+    }
+}
+
 export const findDepartmentByEnterpriseId = async (req: Request, res: Response) => {
   const departmentRepository = getRepository(Department);
   const { id } = req.params;

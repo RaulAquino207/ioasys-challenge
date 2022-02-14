@@ -1,9 +1,9 @@
 import { Router, Request, Response } from "express";
 import { verifyToken, verifyRole } from './middleware/authMiddleware'
 import { authenticate } from './controller/AuthController'
-import { registerUser, findUserByEnterpriseId, findUserByDepartment } from './controller/UserController';
+import { registerUser, findUserByEnterpriseId, findUserByDepartment, changeUserInfo, deleteUser } from './controller/UserController';
 import { registerEnterprise } from './controller/EnterpriseController';
-import { registerDepartment, findDepartmentByEnterpriseId } from './controller/DepartmentController';
+import { registerDepartment, findDepartmentByEnterpriseId, changeDepartmentName, deleteDepartment } from './controller/DepartmentController';
 
 const routes = Router();
 
@@ -31,6 +31,14 @@ routes.get("/findUserByDepartment/:id", verifyToken, verifyRole("ADMIN", "EMPLOY
 
 routes.get("/findDepartmentByEnterpriseId/:id", verifyToken, verifyRole("ADMIN", "EMPLOYEE"), findDepartmentByEnterpriseId);
 
+routes.put("/changeUserInfo/:id", verifyToken, verifyRole("ADMIN"), changeUserInfo);
+
+routes.delete("/deleteUser/:id", verifyToken, verifyRole("ADMIN"), deleteUser);
+
+routes.delete("/deleteDepartment/:id", verifyToken, verifyRole("ADMIN"), deleteDepartment);
+
 routes.post("/login", authenticate);
+
+routes.put("/changeDepartmentName/:id", verifyToken, verifyRole("ADMIN"), changeDepartmentName);
 
 export default routes;
