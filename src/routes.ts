@@ -1,8 +1,9 @@
 import { Router, Request, Response } from "express";
 import { verifyToken, verifyRole } from './middleware/authMiddleware'
-import { registerUser, authenticate, findUserByEnterpriseId, findUserByDepartment } from './controller/UserController';
+import { authenticate } from './controller/AuthController'
+import { registerUser, findUserByEnterpriseId, findUserByDepartment } from './controller/UserController';
 import { registerEnterprise } from './controller/EnterpriseController';
-import { registerDepartment } from './controller/DepartmentController';
+import { registerDepartment, findDepartmentByEnterpriseId } from './controller/DepartmentController';
 
 const routes = Router();
 
@@ -24,9 +25,11 @@ routes.post("/registerDepartment",  verifyToken, verifyRole("ADMIN"), registerDe
 
 routes.post("/registerUser", verifyToken, verifyRole("ADMIN"), registerUser);
 
-routes.get("/findUserByEnterpriseId/:id", verifyToken, verifyRole("ADMIN"), findUserByEnterpriseId);
+routes.get("/findUserByEnterpriseId/:id", verifyToken, verifyRole("ADMIN", "EMPLOYEE"), findUserByEnterpriseId);
 
-routes.get("/findUserByDepartment/:id", verifyToken, verifyRole("ADMIN"), findUserByDepartment);
+routes.get("/findUserByDepartment/:id", verifyToken, verifyRole("ADMIN", "EMPLOYEE"), findUserByDepartment);
+
+routes.get("/findDepartmentByEnterpriseId/:id", verifyToken, verifyRole("ADMIN", "EMPLOYEE"), findDepartmentByEnterpriseId);
 
 routes.post("/login", authenticate);
 

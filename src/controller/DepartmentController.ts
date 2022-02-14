@@ -3,6 +3,29 @@ import { Request, Response } from "express";
 import { Department } from "../entity/Department.entity";
 import { Enterprise } from "../entity/Enterprise.entity";
 
+export const findDepartmentByEnterpriseId = async (req: Request, res: Response) => {
+  const departmentRepository = getRepository(Department);
+  const { id } = req.params;
+
+  try {
+    const departments = await departmentRepository.find({
+      where : {
+        enterprise : id
+      }
+    })
+
+    if(departments.length == 0){
+      return res.status(400).json({
+        message: "Department not found",
+      });
+    } else {
+      return res.send(departments);
+    }
+  } catch (error) {
+    
+  }
+}
+
 export const registerDepartment = async (req: Request, res: Response) => {
   const departmentRepository = getRepository(Department);
   const enterpriseRepository = getRepository(Enterprise);

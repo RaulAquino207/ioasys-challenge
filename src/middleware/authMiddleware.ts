@@ -4,7 +4,13 @@ import { getRepository } from "typeorm";
 import { User } from '../entity/User.entity';
 
 export function verifyToken(req : Request, res : Response, next : NextFunction) {
-    const authorization = req.body.token || req.query.token || req.headers;
+    try {
+        var authorization = req.body.token || req.query.token || req.headers;
+    } catch (error) {
+        res.status(401).json({
+            message: "Please login"
+        })
+    }
 
     if(!authorization){
         res.status(403).send('A token is required for authentication');

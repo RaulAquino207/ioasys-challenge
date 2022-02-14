@@ -19,6 +19,6 @@ app.use(cors());
 app.use(routes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerconfig));
 app.listen(port, () => {
-    console.log(`🚀 ~ Server started on port ~ ${port}`);
+    console.log(`🚀 ~ Server started on port ~ ${port}, go to http://localhost:${port}/api-docs for endpoint documentation.`);
 })
 
