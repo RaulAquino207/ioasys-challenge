@@ -59,6 +59,17 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/Enterprise"
+              },
+              "examples" : {
+                "enterprise" : {
+                  "value" : {
+                    "enterpriseName" : "TEST 1",
+                    "userName" : "NAME 1",
+                    "email" : "test1@email.com",
+                    "password" : "12345678",
+                    "passwordConfirm" : "12345678"
+                  }
+                }
               }
             }
           }
@@ -106,11 +117,57 @@
         "sumary" : "",
         "description" : "",
         "tags" : ["User"],
+        "security" : [{"bearerAuth" : []}],
         "requestBody" : {
           "content" : {
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/User"
+              },
+              "examples" : {
+                "user" : {
+                  "value" : {
+                    "userName" : "NAME 1",
+                    "email" : "test1@email.com",
+                    "password" : "12345678",
+                    "passwordConfirm" : "12345678",
+                    "roleTag" : "ADMIN"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "type" : "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login" : {
+      "post" : {
+        "sumary" : "",
+        "description" : "",
+        "tags" : ["User"],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Authenticate"
+              },
+              "examples" : {
+                "authenticate" : {
+                  "value" : {
+                    "email" : "admin@email.com",
+                    "password" : "12345678"
+                  }
+                }
               }
             }
           }
@@ -182,6 +239,25 @@
             "type" : "string"
           }
         }
+      },
+
+      "Authenticate" : {
+        "type" : "object",
+        "properties" : {
+          "email" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "bearerAuth" : {
+        "type" : "http",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
       }
     }
   }

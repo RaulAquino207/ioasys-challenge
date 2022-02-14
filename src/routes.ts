@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
-import { registerUser } from './controller/UserController';
+import {verifyToken, verifyRole} from './middleware/authMiddleware'
+import { registerUser, authenticate } from './controller/UserController';
 import { registerEnterprise } from './controller/EnterpriseController';
 import { registerDepartment } from './controller/DepartmentController';
 
@@ -21,6 +22,8 @@ routes.post("/registerEnterprise", registerEnterprise);
 
 routes.post("/registerDepartment", registerDepartment);
 
-routes.post("/registerUser", registerUser);
+routes.post("/registerUser", verifyToken, verifyRole("ADMIN"), registerUser);
+
+routes.post("/login", authenticate);
 
 export default routes;
