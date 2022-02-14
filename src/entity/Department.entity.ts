@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { Enterprise } from "./Enterprise.entity";
+import { User } from "./User.entity";
 
 @Entity()
 export class Department {
@@ -19,4 +20,10 @@ export class Department {
   @ManyToOne(() => Enterprise, (enterprise) => enterprise.id)
   @JoinColumn({ name: "enterpriseId" })
   enterprise: Enterprise;
+
+  @OneToMany(
+    () => User,
+    user => user.id,
+  )
+  users: User;
 }

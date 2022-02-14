@@ -1,4 +1,5 @@
 import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne} from "typeorm";
+import { Department } from "./Department.entity";
 import { Enterprise } from "./Enterprise.entity";
 import { Role } from "./Role.entity";
 
@@ -31,4 +32,7 @@ export class User {
     @JoinColumn({ name: "enterpriseId" })
     enterprise: Enterprise;
 
+    @ManyToOne(() => Department, (department) => department.id)
+    @JoinColumn({ name: "departmentId" })
+    department: Department;
 }

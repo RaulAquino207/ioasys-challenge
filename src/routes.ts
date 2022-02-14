@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import { verifyToken, verifyRole } from './middleware/authMiddleware'
-import { registerUser, authenticate, findUserByEnterpriseId } from './controller/UserController';
+import { registerUser, authenticate, findUserByEnterpriseId, findUserByDepartment } from './controller/UserController';
 import { registerEnterprise } from './controller/EnterpriseController';
 import { registerDepartment } from './controller/DepartmentController';
 
@@ -25,6 +25,8 @@ routes.post("/registerDepartment",  verifyToken, verifyRole("ADMIN"), registerDe
 routes.post("/registerUser", verifyToken, verifyRole("ADMIN"), registerUser);
 
 routes.get("/findUserByEnterpriseId/:id", verifyToken, verifyRole("ADMIN"), findUserByEnterpriseId);
+
+routes.get("/findUserByDepartment/:id", verifyToken, verifyRole("ADMIN"), findUserByDepartment);
 
 routes.post("/login", authenticate);
 

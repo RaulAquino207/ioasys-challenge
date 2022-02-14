@@ -5,6 +5,7 @@ import * as bcrypt from "bcrypt";
 import { Role } from "../entity/Role.entity";
 import * as jwt from 'jsonwebtoken';
 import { Enterprise } from "../entity/Enterprise.entity";
+import { Department } from "../entity/Department.entity";
 
 export const authenticate = async (req: Request, res: Response) => {
   const UserRepository = getRepository(User);
@@ -45,6 +46,23 @@ export const authenticate = async (req: Request, res: Response) => {
   }
 }
 
+export const findUserByDepartment = async (req: Request, res: Response) => {
+  const userRepository = getRepository(User);
+  const { id } = req.params;
+
+  try {
+    const users = await userRepository.find({
+      where : {
+        department : id
+      }
+    })
+
+    return res.send(users);
+  } catch (error) {
+    
+  }
+}
+
 export const findUserByEnterpriseId = async (req: Request, res: Response) => {
   const userRepository = getRepository(User);
   const { id } = req.params;
@@ -66,8 +84,9 @@ export const registerUser = async (req: Request, res: Response) => {
   const userRepository = getRepository(User);
   const roleRepository = getRepository(Role);
   const enterpriseRepository = getRepository(Enterprise);
+  const departmentRepository = getRepository(Department);
 
-  const { userName, email, password, passwordConfirm, roleTag, enterpriseId } = req.body;
+  const { userName, email, password, passwordConfirm, roleTag, enterpriseId, departmentId } = req.body;
 
   try {
     const foundUser = await userRepository.findOne({
@@ -82,6 +101,12 @@ export const registerUser = async (req: Request, res: Response) => {
       }
     })
 
+    const foundDepartment = await departmentRepository.findOne({
+      where : {
+        id : departmentId
+      }
+    })
+
     if (password != passwordConfirm) {
       return res.status(400).json({ message: "Password do not match" });
     } else if (!!foundUser) {
@@ -91,6 +116,10 @@ export const registerUser = async (req: Request, res: Response) => {
     } else if (!foundEnterprise){
       return res.status(401).send({
         message: "Enterprise not found",
+      });
+    }else if(!foundDepartment) {
+      return res.status(401).send({
+        message: "Department not found",
       });
     }else {
       let hashedPassword = await bcrypt.hash(password, 8);
@@ -114,7 +143,8 @@ export const registerUser = async (req: Request, res: Response) => {
           email: email,
           password: hashedPassword,
           role: foundRole,
-          enterprise : foundEnterprise
+          enterprise : foundEnterprise,
+          department : foundDepartment
         });
 
         await userRepository.save(user);

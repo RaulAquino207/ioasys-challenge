@@ -22,6 +22,7 @@ export const registerDepartment = async (req: Request, res: Response) => {
         message: "Enterprise not found",
       });
     } else if (departments.length != 0) {
+      console.log('entrei no IF')
       const foundDepartment = {};
       departments.forEach(async (department) => {
         if (
@@ -48,6 +49,17 @@ export const registerDepartment = async (req: Request, res: Response) => {
           message: "Department successfully registered",
         });
       }
+    } else {
+      const department = new Department({
+        departmentName: departmentName,
+        createAt: new Date(),
+        enterprise: foundEnterprise,
+      });
+
+      await departmentRepository.save(department);
+      return res.status(200).json({
+        message: "Department successfully registered",
+      });
     }
   } catch (error) {
     throw new Error(`Internal server error : ${error}`);
