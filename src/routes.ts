@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
-import {verifyToken, verifyRole} from './middleware/authMiddleware'
-import { registerUser, authenticate } from './controller/UserController';
+import { verifyToken, verifyRole } from './middleware/authMiddleware'
+import { registerUser, authenticate, findUserByEnterpriseId } from './controller/UserController';
 import { registerEnterprise } from './controller/EnterpriseController';
 import { registerDepartment } from './controller/DepartmentController';
 
@@ -20,9 +20,11 @@ routes.get("/version", (req : Request, res : Response) => {
 
 routes.post("/registerEnterprise", registerEnterprise);
 
-routes.post("/registerDepartment", registerDepartment);
+routes.post("/registerDepartment",  verifyToken, verifyRole("ADMIN"), registerDepartment);
 
 routes.post("/registerUser", verifyToken, verifyRole("ADMIN"), registerUser);
+
+routes.get("/findUserByEnterpriseId/:id", verifyToken, verifyRole("ADMIN"), findUserByEnterpriseId);
 
 routes.post("/login", authenticate);
 

@@ -59,15 +59,17 @@ export const registerEnterprise = async (req: Request, res: Response) => {
         },
       });
 
+      const enterpriseAux = await enterpriseRepository.save(enterprise);
+
       const user = new User({
         userName: userName,
         createAt: new Date(),
         email: email,
         password: hashedPassword,
         role: roleADMIN,
+        enterprise : enterpriseAux
       });
-
-      await enterpriseRepository.save(enterprise);
+      
       await userRepository.save(user);
 
       return res.status(200).json({

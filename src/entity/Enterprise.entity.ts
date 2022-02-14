@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
 import { Department } from "./Department.entity";
+import { User } from "./User.entity";
 
 @Entity()
 export class Enterprise {
@@ -23,4 +24,13 @@ export class Enterprise {
     }
   )
   department: Department[];
+
+  @OneToMany(
+    () => User,
+    (user) => user.id,
+    {
+      cascade: true,
+    }
+  )
+  user: User[];
 }

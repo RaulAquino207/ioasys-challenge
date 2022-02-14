@@ -1,4 +1,5 @@
 import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne} from "typeorm";
+import { Enterprise } from "./Enterprise.entity";
 import { Role } from "./Role.entity";
 
 @Entity()
@@ -23,7 +24,11 @@ export class User {
     password: string;
 
     @ManyToOne(() => Role, { nullable: true })
-    @JoinColumn({ name: 'roleId_id' })
+    @JoinColumn({ name: 'roleId' })
     role: Role;
+
+    @ManyToOne(() => Enterprise, (enterprise) => enterprise.id)
+    @JoinColumn({ name: "enterpriseId" })
+    enterprise: Enterprise;
 
 }
