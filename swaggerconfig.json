@@ -34,8 +34,8 @@
     },
     "/login" : {
       "post" : {
-        "sumary" : "",
-        "description" : "",
+        "sumary" : "Authentication",
+        "description" : "Login with a pre-registered user in the database.",
         "tags" : ["Authenticate"],
         "requestBody" : {
           "content" : {
@@ -69,7 +69,7 @@
     "/findDepartmentByEnterpriseId/{id}" : {
       "get" : {
         "summary" : "",
-        "description" : "",
+        "description" : "Find departments by an enterprise ID.",
         "tags" : ["Department"],
         "parameters" : [
           {
@@ -103,7 +103,7 @@
     "/deleteDepartment/{id}" : {
       "delete" : {
         "summary" : "",
-        "description" : "",
+        "description" : "Delete a specific department.",
         "tags" : ["Department"],
         "parameters" : [
           {
@@ -137,7 +137,7 @@
     "/deleteUser/{id}" : {
       "delete" : {
         "summary" : "",
-        "description" : "",
+        "description" : "Delete a specific user.",
         "tags" : ["User"],
         "parameters" : [
           {
@@ -171,7 +171,7 @@
     "/changeDepartmentName/{id}" : {
       "put" : {
         "summary" : "",
-        "description" : "",
+        "description" : "Rename a specific department.",
         "tags" : ["Department"],
         "parameters" : [
           {
@@ -221,7 +221,7 @@
     "/changeUserInfo/{id}" : {
       "put" : {
         "summary" : "",
-        "description" : "",
+        "description" : "Change user-specific information.",
         "tags" : ["User"],
         "parameters" : [
           {
@@ -275,7 +275,7 @@
     "/findUserByEnterpriseId/{id}" : {
       "get" : {
         "summary" : "",
-        "description" : "",
+        "description" : "Find all users that belong to a certain enterprise.",
         "tags" : ["User"],
         "parameters" : [
           {
@@ -309,7 +309,7 @@
     "/findUserByDepartment/{id}" : {
       "get" : {
         "summary" : "",
-        "description" : "",
+        "description" : "Find all users that belong to a certain department.",
         "tags" : ["User"],
         "parameters" : [
           {
@@ -360,7 +360,7 @@
     "/registerEnterprise" : {
       "post" : {
         "sumary" : "",
-        "description" : "",
+        "description" : "Create a new enterprise where an administrator user is also created.",
         "tags" : ["Enterprise"],
         "requestBody" : {
           "content" : {
@@ -397,7 +397,7 @@
     "/registerDepartment" : {
       "post" : {
         "sumary" : "",
-        "description" : "",
+        "description" : "Register new department.",
         "tags" : ["Department"],
         "security" : [{"bearerAuth" : []}],
         "requestBody" : {
@@ -405,6 +405,14 @@
             "application/json" : {
               "schema" : {
                 "$ref" : "#/components/schemas/Department"
+              },
+              "examples" : {
+                "authenticate" : {
+                  "value" : {
+                    "departmentName" : "RH",
+                    "enterpriseId" : "1"
+                  }
+                }
               }
             }
           }
@@ -424,7 +432,7 @@
     "/registerUser" : {
       "post" : {
         "sumary" : "",
-        "description" : "",
+        "description" : "Register new users, where only admin users can do this",
         "tags" : ["User"],
         "security" : [{"bearerAuth" : []}],
         "requestBody" : {
