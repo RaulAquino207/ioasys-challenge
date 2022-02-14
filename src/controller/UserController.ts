@@ -16,8 +16,13 @@ export const findUserByDepartment = async (req: Request, res: Response) => {
         department : id
       }
     })
-
-    return res.send(users);
+    if(users.length == 0){
+      return res.status(400).json({
+        message: "Users not found",
+      });
+    } else {
+      return res.send(users);
+    }
   } catch (error) {
     throw new Error(`Internal server error : ${error}`);
   }
@@ -34,7 +39,13 @@ export const findUserByEnterpriseId = async (req: Request, res: Response) => {
         enterprise : id
       }
     });
-    return res.send(users);
+    if(users.length == 0){
+      return res.status(400).json({
+        message: "Users not found",
+      });
+    } else {
+      return res.send(users);
+    }
   } catch (error) {
     throw new Error(`Internal server error : ${error}`);
   }
